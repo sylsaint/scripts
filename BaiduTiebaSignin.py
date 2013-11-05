@@ -71,8 +71,8 @@ def tieba_login():
             'loginType'     : "1",
             'tpl'           : "mn",
             'callback'      : "parent.bdPass.api.login._postCallback",
-            'username'      : 'limerary@126.com',
-            'password'      : '11131214s',
+            'username'      : 'yourname',
+            'password'      : 'yourpassword',
             #'verifycode'    : "",
             'mem_pass'      : "on",
         }
@@ -81,9 +81,9 @@ def tieba_login():
         cookiesToCheck = ['BDUSS', 'PTOKEN', 'STOKEN', 'SAVEUSERID']
         loginBaiduOK = checkAllCookiesExist(cookiesToCheck, cookiejar)
         if(loginBaiduOK):
-            print "+++ Emulate login baidu is OK, ^_^"
+            print "login baidu is OK, ^_^"
         else:
-            print "--- Failed to emulate login baidu !"
+            print "Failed to emulate login baidu !"
     return opener  
 opener = tieba_login()
 class BaiduTieba(threading.Thread):
@@ -103,24 +103,8 @@ class BaiduTieba(threading.Thread):
             opener.open(signurl, postData)
             print self.name + " Begin to sign in " + urllib.quote(tiebaName) + " tieba."
 
-def run():
-    while 1:
-        t1 = time.ctime().split(' ')[3]
-        timedata = int(t1.split(':')[0])*3600 + int(t1.split(':')[1])*60 + int(t1.split(':')[2])
-        if timedata > 12*3600+39*60+30:
-            print 'now time is on !'
-            for i in range(5):
-                hefei = BaiduTieba('合肥')
-                hefei.start()
-            for i in range(5):
-                liyi = BaiduTieba('李毅')
-                liyi.start()
-        else:
-            print 'not at the right time !'
-            time.sleep(5)
+
 if __name__ == '__main__':
-    print time.ctime()
-    time.sleep(360)
     for i in range(5):
         hefei = BaiduTieba('合肥')
         hefei.start()
